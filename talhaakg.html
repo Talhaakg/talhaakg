@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+	<!-- AOS Animate On Scroll CSS -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <title>Talha Akgül - Portföy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-light: #f0f2f5;
+      --text-light: #2d2d2d;
+      --card-light: #fff;
+
+      --bg-dark: #121417;
+      --text-dark: #e0e0e0;
+      --card-dark: #1f222a;
+    }
+	  section {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+section:hover {
+  transform: scale(1.015);
+  box-shadow: 0 0 20px rgba(155, 89, 182, 0.25);
+}
+
+	  /* foto pp */
+	  #wavyImg {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow:
+    0 0 20px #9b59b6,
+    0 0 30px #a569bd;
+  transition: border-color 0.4s;
+}
+
+#wavyImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+#wavyImg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+
+  background:
+    radial-gradient(circle 10px at 10% 20%, rgba(255,255,255,0.15), transparent 30%),
+    radial-gradient(circle 15px at 40% 60%, rgba(255,255,255,0.1), transparent 40%),
+    radial-gradient(circle 12px at 70% 30%, rgba(255,255,255,0.12), transparent 35%);
+  background-repeat: repeat;
+  background-size: 150% 150%;
+  animation: wave-move 5s linear infinite;
+  mix-blend-mode: screen;
+  z-index: 2;
+}
+
+@keyframes wave-move {
+  0% {
+    background-position: 0% 0%, 50% 50%, 100% 0%;
+  }
+  100% {
+    background-position: 100% 100%, 0% 0%, 50% 100%;
+  }
+}
+
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: 'Fira Code', monospace;
+      scroll-behavior: smooth;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.4s, color 0.4s;
+    }
+    html[data-theme="dark"] {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    body.white-bg {
+      background: #cccccc  !important;
+      color: var(--text-light) !important;
+      transition: background 0.4s, color 0.4s;
+    }
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Intro */
+    #intro {
+      position: fixed;
+      inset: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+    #intro video {
+      position: absolute;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.3);
+      z-index: -1;
+    }
+    #text {
+      font-size: 2.5rem;
+      white-space: nowrap;
+      border-right: 2px solid #9b59b6;
+      display: flex;
+      gap: 0.1em;
+      background: linear-gradient(90deg, #8e44ad, #9b59b6, #a569bd, #8e44ad);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: bold;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+    @keyframes glowText {
+      0% {
+        text-shadow: 0 0 10px #9b59b6, 0 0 20px #8e44ad;
+      }
+      100% {
+        text-shadow: 0 0 25px #a569bd, 0 0 40px #9b59b6;
+      }
+    }
+
+    /* Menü */
+    header {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 60px;
+      background: #0a0a0a;
+      background-image:
+        linear-gradient(
+          90deg,
+          #2e0854 0%,
+          #5e0fa3 20%,
+          #a653e2 50%,
+          #5e0fa3 80%,
+          #2e0854 100%
+        );
+      background-size: 300% 100%;
+      animation: lightShift 8s linear infinite;
+      box-shadow:
+        0 0 15px #8e44ad,
+        inset 0 0 10px #9b59b6,
+        inset 0 0 20px #a569bd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      z-index: 10000;
+      user-select: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: none; /* Intro sonrası gösterilecek */
+    }
+    @keyframes lightShift {
+      0% { background-position: 0% 0; }
+      50% { background-position: 100% 0; }
+      100% { background-position: 0% 0; }
+    }
+    header a {
+      color: #cda4ff;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      transition: background 0.4s, color 0.4s, box-shadow 0.4s;
+      text-shadow:
+        0 0 6px #d4a6ff,
+        0 0 15px #d4a6ff;
+    }
+    header a:hover,
+    header a:focus {
+      background: #a564ff;
+      color: white;
+      box-shadow:
+        0 0 15px #d4a6ff,
+        0 0 30px #d4a6ff;
+      outline: none;
+    }
+
+    /* Main container */
+    #mainPage {
+      max-width: 900px;
+      margin: 80px auto 50px;
+      padding: 0 20px;
+      display: none;
+      position: relative;
+      z-index: 2;
+    }
+	 
+
+    /* Hakkımda */
+    #hakkimda {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 60px;
+      background: var(--card-light);
+      padding: 40px 35px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      color: var(--text-light);
+      transition: background 0.4s, color 0.4s;
+      font-size: 1.15rem;
+
+      line-height: 1.6;
+    }
+    html[data-theme="dark"] #hakkimda {
+      background: var(--card-dark);
+      box-shadow: 0 6px 20px rgba(155, 89, 182, 0.3);
+      color: var(--text-dark);
+    }
+    #hakkimda img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #9b59b6;
+      flex-shrink: 0;
+      box-shadow:
+        0 0 20px #9b59b6,
+        0 0 30px #a569bd;
+      transition: border-color 0.4s;
+    }
+    html[data-theme="dark"] #hakkimda img {
+      border-color: #d6a3ff;
+      box-shadow:
+        0 0 25px #d6a3ff,
+        0 0 40px #bb9fff;
+    }
+    #hakkimda .text {
+      flex: 1;
+    }
+
+    /* Deneyim ve Sertifikalar bölümü */
+    #experience, #certificates {
+      background: var(--card-light);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.07);
+      margin-bottom: 40px;
+      color: var(--text-light);
+      transition: background 0.4s, color 0.4s;
+    }
+    html[data-theme="dark"] #experience,
+    html[data-theme="dark"] #certificates {
+      background: var(--card-dark);
+      color: var(--text-dark);
+      box-shadow: 0 0 30px rgba(155,89,182,0.3);
+    }
+    #experience h2, #certificates h2 {
+      font-weight: 700;
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: #8e44ad;
+      border-bottom: 3px solid #9b59b6;
+      padding-bottom: 8px;
+      letter-spacing: 1.2px;
+    }
+    #experience ul, #certificates ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    #experience li, #certificates li {
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    #experience li span, #certificates li span {
+      font-weight: 400;
+      color: #7d6ca6;
+      margin-left: 8px;
+    }
+
+    /* İletişim kısmı - birebir yigituskuplu.netlify.app/ ile aynı */
+    #iletisim {
+      background: var(--card-light);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.07);
+      color: var(--text-light);
+      transition: background 0.4s, color 0.4s;
+    }
+    html[data-theme="dark"] #iletisim {
+      background: var(--card-dark);
+      color: var(--text-dark);
+      box-shadow: 0 0 30px rgba(155,89,182,0.3);
+    }
+    #iletisim h2 {
+      font-weight: 700;
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: #8e44ad;
+      border-bottom: 3px solid #9b59b6;
+      padding-bottom: 8px;
+      letter-spacing: 1.2px;
+    }
+    #iletisim form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    #iletisim input[type="text"],
+    #iletisim input[type="email"],
+    #iletisim textarea {
+      flex: 1 1 48%;
+      padding: 12px;
+      border: 1.5px solid #9b59b6;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Fira Code', monospace;
+      transition: border-color 0.3s;
+      resize: vertical;
+    }
+    #iletisim textarea {
+      flex-basis: 100%;
+      min-height: 120px;
+    }
+    #iletisim input[type="text"]:focus,
+    #iletisim input[type="email"]:focus,
+    #iletisim textarea:focus {
+      outline: none;
+      border-color: #d6a3ff;
+      box-shadow: 0 0 8px #d6a3ff;
+    }
+    #iletisim button {
+      padding: 12px 25px;
+      background: #9b59b6;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    #iletisim button:hover {
+      background: #a564ff;
+      box-shadow: 0 0 12px #a564ff;
+    }
+
+    #social-icons {
+      display: flex;
+      gap: 20px;
+      font-size: 1.8rem;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    #social-icons a {
+      color: #9b59b6;
+      transition: color 0.3s;
+    }
+    #social-icons a:hover {
+      color: #d6a3ff;
+    }
+
+    /* Responsive */
+    @media (max-width: 650px) {
+      #hakkimda {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px 20px;
+        gap: 20px;
+      }
+      #hakkimda img {
+        width: 140px;
+        height: 140px;
+        box-shadow:
+          0 0 15px #9b59b6;
+      }
+      #iletisim input[type="text"],
+      #iletisim input[type="email"] {
+        flex-basis: 100%;
+      }
+    }
+
+    /* Arka plan video */
+    #backgroundVideo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.3);
+      z-index: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    /* Sağdaki toggle butonu */
+    #toggleThemeBtn {
+      position: fixed;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      background: #9b59b6;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: white;
+      font-size: 32px;
+      box-shadow:
+        0 0 10px #a564ff;
+      transition: background 0.3s, box-shadow 0.3s;
+      z-index: 10001;
+      user-select: none;
+    }
+    #toggleThemeBtn:hover {
+      background: #a564ff;
+      box-shadow:
+        0 0 15px #d6a3ff;
+    }
+	  /* Projeler bölümü */
+#projects {
+  background: var(--card-light);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.07);
+  margin-bottom: 40px;
+  color: var(--text-light);
+  transition: background 0.4s, color 0.4s;
+}
+html[data-theme="dark"] #projects {
+  background: var(--card-dark);
+  color: var(--text-dark);
+  box-shadow: 0 0 30px rgba(155,89,182,0.3);
+}
+#projects h2 {
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: #8e44ad;
+  border-bottom: 3px solid #9b59b6;
+  padding-bottom: 8px;
+  letter-spacing: 1.2px;
+}
+#projects ul {
+  list-style: none;
+  padding-left: 0;
+}
+#projects li {
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+#projects li span {
+  font-weight: 400;
+  color: #7d6ca6;
+  margin-left: 8px;
+}
+	  #projects ul li {
+  margin-bottom: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  list-style: none;
+}
+
+#projects ul li a {
+  display: block;
+  text-decoration: none;
+  padding: 15px 20px;
+  border-radius: 10px;
+  background: rgba(155, 89, 182, 0.1);
+  color: inherit;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+#projects ul li a:hover {
+  background: rgba(155, 89, 182, 0.2);
+  transform: scale(1.02);
+  box-shadow: 0 0 12px rgba(155, 89, 182, 0.3);
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Intro -->
+  <div id="intro">
+    <video src="44.mp4" autoplay muted playsinline></video>
+    <div id="text"></div>
+  </div>
+
+  <!-- Menü -->
+  <header>
+    <a href="#hakkimda">Hakkımda</a>
+    <a href="#experience">Deneyim</a>
+    <a href="#certificates">Sertifikalar</a>
+	  <a href="#projects">Projeler</a>
+
+    <a href="#iletisim">İletişim</a>
+  </header>
+
+  <!-- Ana içerik -->
+  <main id="mainPage">
+
+    <!-- Hakkımda -->
+   <section id="hakkimda">
+  <div id="wavyImg">
+    <img src="talha.png.jpg" alt="Talha Akgül Fotoğrafı" />
+  </div>
+  <div class="text">
+   <h1>Merhaba! Ben <strong>Talha Akgül</strong>.</h1>
+    Yazılım geliştirici ve teknoloji tutkunu biriyim. Web projeleri geliştiriyorum ve açık kaynak dünyasına katkıda bulunmayı seviyorum.<br><br>
+    Modern, sade ve etkili arayüzler tasarlamaya önem veririm.<br>
+  </div>
+</section>
+
+
+    <!-- Deneyim -->
+    <section id="experience">
+      <h2>Deneyim</h2>
+      <ul>
+        <li><strong>1 </strong><span> - Altındağ belediyesinde bilgi işlem dairesinde staj yaptım </span></li>
+       
+      </ul>
+    </section>
+
+    <!-- Sertifikalar -->
+    <section id="certificates">
+      <h2>Sertifikalar</h2>
+      <ul>
+        <li><strong>2 Sertifika</strong><span> - Algoritma</span></li>
+        <li><strong>1 Sertifika</strong><span> - C#</span></li>
+      </ul>
+    </section>
+	  <!-- Projeler -->
+<section id="projects">
+  <h2>Projeler</h2>
+  <ul>
+    <li>
+      <a href="https://github.com/Talhaakg/akilli-saat" target="_blank">
+        <strong>Akıllı Saat Projesi</strong>
+        <span> - ESP32, OLED, MAX30102 ile yapılmış Bluetooth bağlantılı saat</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/Talhaakg/engel-araci" target="_blank">
+        <strong>Engel Algılayan Araç</strong>
+        <span> - Arduino ile ultrasonik sensör destekli mini araç</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/Talhaakg/telegram-nabiz" target="_blank">
+        <strong>Telegram Nabız Takip Sistemi</strong>
+        <span> - MAX30102 sensörü ile anlık nabız verisi Telegram üzerinden gönderilir</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/Talhaakg/akilli-bileklik" target="_blank">
+        <strong>Akıllı Bileklik (Nabız Sensörlü)</strong>
+        <span> - MAX30102 ile bileğe takılan, OLED ekranda nabız gösteren taşınabilir cihaz</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/Talhaakg/portfolio-website" target="_blank">
+        <strong>Portföy Web Sitesi</strong>
+        <span> - HTML, CSS ve JavaScript ile hazırlanmış kişisel web sitesi</span>
+      </a>
+    </li>
+  </ul>
+</section>
+
+
+
+    <!-- İletişim -->
+   <section id="iletisim">
+  <h2>İletişim</h2>
+  <form action="https://formspree.io/f/mldllqwk" method="POST">
+    <input type="text" name="name" placeholder="Adınız" required />
+    <input type="email" name="email" placeholder="E-posta" required />
+    <textarea name="message" placeholder="Mesajınız" required></textarea>
+    <button type="submit">Gönder</button>
+  </form>
+
+  <div id="social-icons">
+    <a href="https://github.com/Talhaakg" target="_blank" rel="noopener" aria-label="Github"><i class="fab fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/talha-akg%C3%BCl-b1a304369/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="mailto:remzir588@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    <a href="https://www.youtube.com/@talhaakg" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+	   <a href="https://www.instagram.com/talhaakg/" target="_blank" rel="noopener" aria-label="instagram"><i class="fab fa-instagram"></i></a>
+  </div>
+</section>
+
+
+  </main>
+
+  <!-- Arka plan video sabit altta -->
+  <video id="backgroundVideo" src="44.mp4" autoplay muted loop playsinline></video>
+
+  <!-- Sağdaki toggle butonu (mum simgesi) -->
+  <button id="toggleThemeBtn" aria-label="Mum aç kapa">
+    <i class="fas fa-solid fa-eye"></i>
+  </button>
+
+  <script>
+    // Yazı efekti
+    const text = "<Merhaba, Dünya!>";
+    const colors = ['#8e44ad', '#9b59b6', '#a569bd', '#8e44ad', '#9b59b6', '#a569bd', '#8e44ad'];
+    const textDiv = document.getElementById("text");
+    let i = 0;
+
+    function typeWriter() {
+      if (i < text.length) {
+        const span = document.createElement("span");
+        span.textContent = text.charAt(i);
+        span.style.color = colors[i % colors.length];
+        textDiv.appendChild(span);
+        i++;
+        setTimeout(typeWriter, 120);
+      } else {
+        textDiv.style.borderRight = "none";
+      }
+    }
+
+    window.addEventListener("load", () => {
+      typeWriter();
+      setTimeout(() => {
+        document.getElementById("intro").style.display = "none";
+        document.getElementById("mainPage").style.display = "block";
+        document.querySelector("header").style.display = "flex";
+        document.body.style.overflowY = "auto";
+      }, 4000);
+    });
+
+    // Mum butonu toggle fonksiyonu
+    const toggleBtn = document.getElementById("toggleThemeBtn");
+    const bgVideo = document.getElementById("backgroundVideo");
+    let isWhite = false;
+
+    toggleBtn.addEventListener("click", () => {
+      if (!isWhite) {
+        bgVideo.style.opacity = 0;
+        document.body.classList.add("white-bg");
+      } else {
+        bgVideo.style.opacity = 1;
+        document.body.classList.remove("white-bg");
+      }
+      isWhite = !isWhite;
+    });
+  </script>
+	<!-- AOS Animate On Scroll JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+ 
+</script>
+</body>
+</html>
